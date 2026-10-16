@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataConnectionFactory\DataConnectionFactory.csproj" />
+    <ProjectReference Include="..\DTO_Models\DTO_Models.csproj" />
+    <ProjectReference Include="..\Museum_Management_Repo\Museum_Management_Repositories.csproj" />
+    <ProjectReference Include="..\Museum_Management_Services\Museum_Management_Services.csproj" />
+  </ItemGroup>
+
+</Project>

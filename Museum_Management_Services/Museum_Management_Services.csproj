@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DTO_Models\DTO_Models.csproj" />
+    <ProjectReference Include="..\Museum_Management_Repo\Museum_Management_Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
