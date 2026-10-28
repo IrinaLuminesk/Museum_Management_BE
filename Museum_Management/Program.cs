@@ -1,3 +1,4 @@
+using DataConnectionFactory.Impls;
 using DataConnectionFactory.Intfs;
 
 
@@ -14,10 +15,25 @@ builder.Services.AddMvc().AddJsonOptions(options => options.JsonSerializerOption
 builder.Services.AddSingleton<
     ISqlConnectionFactory,
     SqlConnectionFactory>();
+builder.Services.AddSingleton<
+    IStoreProcedureFactory,
+    StoreProcedureFactory>();
 
 //builder.Services.AddScoped<IMuseumRepository, MuseumRepository>();
 //builder.Services.AddScoped<IMuseumService, MuseumService>();
 builder.Services.AddApplicationServices();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactApp", policy =>
+    {
+        policy
+            .WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 
 var app = builder.Build();
 
@@ -30,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("ReactApp");
 
 app.UseAuthorization();
 

@@ -2,6 +2,7 @@
 using DTO_Models.Response;
 using Museum_Management_Repositories.MasterData.Intfs;
 using Museum_Management_Services.MasterData.Intfs;
+using System.Reflection;
 
 namespace Museum_Management_Services.MasterData.Impls
 {
@@ -14,24 +15,29 @@ namespace Museum_Management_Services.MasterData.Impls
             _museumRepository = museumRepository;
         }
 
-        public async Task<APIResponse_Model> Search(Museum_model? model)
+        public async Task<APIResponse_Model> Museum_Search(Museum_model? model)
         { 
-            return await _museumRepository.Search(model);
+            return await _museumRepository.Museum_Search(model);
         }
 
-        public async Task<APIResponse_Model> Add(Museum_model? model)
+        public async Task<APIResponse_Model> Museum_Create(Museum_model? model)
         {
-            throw new NotImplementedException();
+            return await _museumRepository.Museum_Create(model);
         }
 
-        public async Task<APIResponse_Model> Update(Museum_model? model)
+        public async Task<APIResponse_Model> Museum_Edit(Museum_model? model)
         {
-            throw new NotImplementedException();
+            return await _museumRepository.Museum_Edit(model);
         }
 
-        public async Task<APIResponse_Model> Delete(Museum_model? model)
+        public async Task<APIResponse_Model> Museum_Delete(string MuseumId)
         {
-            throw new NotImplementedException();
+            return await _museumRepository.Museum_Delete(MuseumId);
+        }
+
+        public async Task<APIResponse_Model> Museum_getbyId(string MuseumId)
+        {
+            return await _museumRepository.Museum_getbyId(MuseumId);
         }
     }
 }

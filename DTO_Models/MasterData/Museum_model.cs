@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO_Models.MasterData
+﻿namespace DTO_Models.MasterData
 {
-    public class Museum_model
+    public class Museum_model : Datatable_model
     {
-        public int? MUSEUM_ID { get; set; }
+        public string? MUSEUM_ID { get; set; }
 
         public string? MUSEUM_NAME { get; set; }
         public string? ADDRESS { get; set; }
@@ -20,5 +12,13 @@ namespace DTO_Models.MasterData
         public string? COUNTRY { get; set; }
         public string? PHONE { get; set; }
         public string? URL { get; set; }
+
+        public string? STATUS { get; set; }
+
+        public DateTime? CREATE_DT { get; set; }
+            
+        public DateTime? CREATE_DT_FROMDATE { get; set; }
+
+        public DateTime? CREATE_DT_TODATE { get; set; }
     }
 }
