@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Museum_Management_Utilities\Museum_Management_Utilities.csproj" />
+  </ItemGroup>
+
 </Project>

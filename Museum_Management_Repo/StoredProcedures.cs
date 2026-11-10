@@ -29,6 +29,7 @@ namespace Museum_Management_Repositories
             public const string ALLCODE_GETBYID = "CM_ALLCODE_GETBYID";
             public const string ALLCODE_EDIT = "CM_ALLCODE_EDIT";
             public const string ALLCODE_CREATE = "CM_ALLCODE_CREATE";
+            public const string ALLCODE_DELETE = "CM_ALLCODE_DELETE";
 
         }
         #endregion

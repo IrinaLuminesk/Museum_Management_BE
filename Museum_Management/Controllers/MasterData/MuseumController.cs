@@ -117,5 +117,25 @@ namespace Museum_Management.Controllers.MasterData
                 };
             }
         }
+
+        [HttpPost("MUSEUM_EXPORT")]
+        public async Task<APIResponse_Model> Museum_Export(MuseumExport_model model)
+        {
+            try
+            {
+                var results = await _museumService.Museum_Export(model);
+
+
+                return results;
+            }
+            catch (ArgumentException ex)
+            {
+                return new APIResponse_Model()
+                {
+                    responseCode = 500,
+                    responseMessage = ex.Message
+                };
+            }
+        }
     }
 }

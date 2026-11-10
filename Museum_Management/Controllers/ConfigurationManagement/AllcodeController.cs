@@ -80,11 +80,31 @@ namespace Museum_Management.Controllers.ConfigurationManagement
         }
 
         [HttpPost("ALLCODE_GETBYID")]
-        public async Task<APIResponse_Model> Allcode_getbyId(int Allcode_Id)
+        public async Task<APIResponse_Model> Allcode_getbyId(string? Allcode_Id)
         {
             try
             {
                 var results = await _allcodeService.Allcode_getbyId(Allcode_Id);
+
+
+                return results;
+            }
+            catch (ArgumentException ex)
+            {
+                return new APIResponse_Model()
+                {
+                    responseCode = 500,
+                    responseMessage = ex.Message
+                };
+            }
+        }
+
+        [HttpPost("ALLCODE_DELETE")]
+        public async Task<APIResponse_Model> Allcode_Delete(string? Allcode_Id)
+        {
+            try
+            {
+                var results = await _allcodeService.Allcode_Delete(Allcode_Id);
 
 
                 return results;

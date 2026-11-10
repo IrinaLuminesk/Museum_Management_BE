@@ -29,9 +29,14 @@ namespace Museum_Management_Services.ConfigurationManagement.Intfs
         }
 
 
-        public async Task<APIResponse_Model> Allcode_getbyId(int Allcode_Id)
+        public async Task<APIResponse_Model> Allcode_getbyId(string? Allcode_Id)
         {
             return await _allcodeRepository.Allcode_getbyId(Allcode_Id);
+        }
+
+        public async Task<APIResponse_Model> Allcode_Delete(string? Allcode_Id)
+        {
+            return await _allcodeRepository.Allcode_Delete(Allcode_Id);
         }
     }
 }

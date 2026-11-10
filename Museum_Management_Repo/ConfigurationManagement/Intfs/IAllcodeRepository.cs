@@ -10,6 +10,10 @@ namespace Museum_Management_Repositories.ConfigurationManagement.Intfs
 
         public Task<APIResponse_Model> Allcode_Edit(Allcode_model? model);
 
-        public Task<APIResponse_Model> Allcode_getbyId(int Allcode_Id);
+        public Task<APIResponse_Model> Allcode_getbyId(string? Allcode_Id);
+
+        public Task<APIResponse_Model> Allcode_Delete(string? Allcode_Id);
+
+
     }
 }

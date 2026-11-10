@@ -33,9 +33,14 @@ namespace Museum_Management_Repositories.ConfigurationManagement.Impls
             return await _storeprocedureFactory.Edit<Allcode_model>(StoredProcedures.Allcode.ALLCODE_EDIT, model);
         }
 
-        public async Task<APIResponse_Model> Allcode_getbyId(int Allcode_Id)
+        public async Task<APIResponse_Model> Allcode_getbyId(string? Allcode_Id)
         {
             return await _storeprocedureFactory.GetbyId<Allcode_model>(StoredProcedures.Allcode.ALLCODE_GETBYID, new { p_Allcode_Id = Allcode_Id });
+        }
+
+        public async Task<APIResponse_Model> Allcode_Delete(string? Allcode_Id)
+        {
+            return await _storeprocedureFactory.Delete(StoredProcedures.Allcode.ALLCODE_DELETE, new { p_Allcode_Id = Allcode_Id });
         }
     }
 }

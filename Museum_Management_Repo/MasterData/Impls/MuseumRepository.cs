@@ -43,5 +43,10 @@ namespace Museum_Management_Repositories.MasterData.Impls
         {
             return await _storeprocedureFactory.GetbyId<Museum_model>(StoredProcedures.Museum.MUSEUM_GETBYID, new { p_MUSEUM_ID = MuseumId });
         }
+
+        public async Task<APIResponse_Model> Museum_Export(MuseumExport_model? model)
+        {
+            return await _storeprocedureFactory.Export<Museum_model>(StoredProcedures.Museum.MUSEUM_SEARCH, model.searchParams, model.exportParams);
+        }
     }
 }

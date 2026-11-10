@@ -1,4 +1,6 @@
-﻿namespace DTO_Models.MasterData
+﻿using Museum_Management_Utilities.FileHandler;
+
+namespace DTO_Models.MasterData
 {
     public class Museum_model : Datatable_model
     {
@@ -12,13 +14,16 @@
         public string? COUNTRY { get; set; }
         public string? PHONE { get; set; }
         public string? URL { get; set; }
-
+        [ExcelIgnore]
         public string? STATUS { get; set; }
-
+        public string? CONTENT { get; set; }
+        
         public DateTime? CREATE_DT { get; set; }
-            
+        [ExcelIgnore]
         public DateTime? CREATE_DT_FROMDATE { get; set; }
-
+        [ExcelIgnore]
         public DateTime? CREATE_DT_TODATE { get; set; }
+        [ExcelIgnore]
+        public bool? Export { get; set; } = false;
     }
 }

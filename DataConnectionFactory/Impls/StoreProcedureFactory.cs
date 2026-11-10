@@ -1,15 +1,9 @@
 ﻿using Dapper;
 using DataConnectionFactory.Intfs;
-using DTO_Models.MasterData;
 using DTO_Models.Response;
+using Lottery_Predict_Utilities.FileProcess;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataConnectionFactory.Impls
 {
@@ -90,7 +84,8 @@ namespace DataConnectionFactory.Impls
             var resultList = await connection.QueryMultipleAsync(
                 storeProcedureName,
                 parameters,
-                commandType: CommandType.StoredProcedure
+                commandType: CommandType.StoredProcedure,
+                commandTimeout: 120
                 );
 
             var data = (await resultList.ReadAsync<T>()).ToList();
@@ -100,13 +95,14 @@ namespace DataConnectionFactory.Impls
             {
                 responseCode = 200,
                 responseMessage = "",
-                result = new { 
+                result = new
+                {
                     data,
                     totalRows
                 }
 
             };
-            
+
             return result;
 
         }
@@ -117,19 +113,21 @@ namespace DataConnectionFactory.Impls
             {
                 await using var connection = _connectionFactory.CreateConnection();
 
-                var result = await connection.QuerySingleAsync<T>(
+                var result = await connection.QueryMultipleAsync(
                     storeProcedureName,
                     id,
-                    commandType: CommandType.StoredProcedure
+                    commandType: CommandType.StoredProcedure,
+                    commandTimeout: 120
                 );
-                return new APIResponse_Model()
-                {
-                    responseCode = 200,
-                    responseMessage = "",
-                    result = result
-                };
+
+                var data = (await result.ReadAsync<T>()).ToList();
+
+                var response = await result.ReadFirstAsync<APIResponse_Model>();
+                response.result = data.FirstOrDefault(); ;
+                return response;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 return new APIResponse_Model()
                 {
                     responseCode = 200,
@@ -137,6 +135,42 @@ namespace DataConnectionFactory.Impls
                     result = ex.Message
                 };
             }
+        }
+
+        public async Task<APIResponse_Model> Export<T>(string storeProcedureName, T? model, Export_model param)
+        {
+            await using var connection = _connectionFactory.CreateConnection();
+
+            var parameters = await GetParameters<T>(connection, storeProcedureName, model);
+
+            var resultList = await connection.QueryMultipleAsync(
+                storeProcedureName,
+                parameters,
+                commandType: CommandType.StoredProcedure,
+                commandTimeout: 120
+                );
+
+            //var data = (await resultList.ReadAsync<T>()).ToList();
+            //Đảm bảo headers và data align
+            var data = (await resultList.ReadAsync()).Select(row => (IDictionary<string, object>)row).ToList();
+            var orderedData = data.Select(row => param.columnId.Select(header => 
+            row.TryGetValue(header, out var value) ? value : null).ToList()).ToList();
+            var excelData = (await FileHandler.ExportExcel2<T>(param.reportName, param.headers, orderedData));
+            var totalRows = await resultList.ReadSingleAsync<int>();
+
+            var result = new APIResponse_Model()
+            {
+                responseCode = 200,
+                responseMessage = "",
+                result = new
+                {
+                    excelData,
+                    totalRows
+                }
+
+            };
+
+            return result;
         }
     }
 }

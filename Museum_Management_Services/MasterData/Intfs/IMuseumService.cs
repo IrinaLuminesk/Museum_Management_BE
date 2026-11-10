@@ -13,5 +13,7 @@ namespace Museum_Management_Services.MasterData.Intfs
         public Task<APIResponse_Model> Museum_Delete(string MuseumId);
 
         public Task<APIResponse_Model> Museum_getbyId(string MuseumId);
+
+        public Task<APIResponse_Model> Museum_Export(MuseumExport_model? model);
     }
 }

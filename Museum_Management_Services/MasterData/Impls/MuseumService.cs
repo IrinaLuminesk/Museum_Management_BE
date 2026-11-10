@@ -39,5 +39,10 @@ namespace Museum_Management_Services.MasterData.Impls
         {
             return await _museumRepository.Museum_getbyId(MuseumId);
         }
+
+        public async Task<APIResponse_Model> Museum_Export(MuseumExport_model? model)
+        {
+            return await _museumRepository.Museum_Export(model);
+        }
     }
 }

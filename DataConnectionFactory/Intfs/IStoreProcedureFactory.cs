@@ -14,5 +14,7 @@ namespace DataConnectionFactory.Intfs
         public Task<APIResponse_Model> Delete(string storeProcedureName, object id);
 
         public Task<APIResponse_Model> GetbyId<T>(string storeProcedureName, object id);
+
+        public Task<APIResponse_Model> Export<T>(string storeProcedureName, T? model, Export_model param);
     }
 }
